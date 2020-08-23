@@ -107,11 +107,79 @@ def countElementsFilteredByColumn(criteria, column, lst):
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return counter
 
-def countElementsByCriteria(criteria, column, lst):
+def less (lst : list, numero : int):
+    pos_count = 0
+    pos_aver = 0
+    movie_pos = 0
+    for i in range(0,len(lst[0])-1):
+        if lst[0][i] == "vote_count":
+            pos_count = i
+        if lst[0][i] == "vote_average":
+            pos_aver = i
+        if lst[0][i] == "movie_name":
+            movie_pos = i
+    del lst[0]
+    pelis_count = []
+    pelis_average = []
+    pelis_nombres = []
+    buenas_pelis = []
+    malas_pelis = []
+    for i in lst:
+        pelis_count.append(int(i[pos_count]))
+        pelis_average.append(int(i[pos_aver]))
+        pelis_nombres.append(i[movie_pos])
+    while numero > len(buenas_pelis):
+        x = max(pelis_count)
+        pos_x = pelis_count.index(x)
+        buenas_pelis.append(pelis_nombres[pos_x])
+        del pelis_count[pos_x]
+        ###ahora la parte de malas peliculas###
+        y = min(pelis_average)
+        pos_y = pelis_average.index(y)
+        malas_pelis.append(pelis_nombres[pos_y])
+        del pelis_average[pos_y]
+    
+    buenas_pelis.append(malas_pelis)
+    return buenas_pelis      
+
+def countElementsByCriteria(numero : int, lst : list):
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
-    return 0
+    pos_count = 0
+    pos_aver = 0
+    movie_pos = 0
+    for i in range(0,len(lst[0])-1):
+        if lst[0][i] == "vote_count":
+            pos_count = i
+        if lst[0][i] == "vote_average":
+            pos_aver = i
+        if lst[0][i] == "movie_name":
+            movie_pos = i
+    del lst[0]
+    pelis_count = []
+    pelis_average = []
+    pelis_nombres = []
+    buenas_pelis = []
+    malas_pelis = []
+    for i in lst:
+        pelis_count.append(int(i[pos_count]))
+        pelis_average.append(int(i[pos_aver]))
+        pelis_nombres.append(i[movie_pos])
+    while numero > len(buenas_pelis):
+        x = max(pelis_count)
+        pos_x = pelis_count.index(x)
+        buenas_pelis.append(pelis_nombres[pos_x])
+        del pelis_count[pos_x]
+        ###ahora la parte de malas peliculas###
+        y = min(pelis_average)
+        pos_y = pelis_average.index(y)
+        malas_pelis.append(pelis_nombres[pos_y])
+        del pelis_average[pos_y]
+    
+    buenas_pelis.append(malas_pelis)
+    return buenas_pelis
+
 
 def orderElementsByCriteria(function, column, lst, elements):
     """
